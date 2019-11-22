@@ -1,0 +1,24 @@
+# Maven
+target/
+
+# IntelliJ project files
+*.iml
+*.iws
+*.ipr
+.idea/
+out/
+.DS_Store
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
