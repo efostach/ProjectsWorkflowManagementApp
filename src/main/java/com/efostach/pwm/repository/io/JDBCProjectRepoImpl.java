@@ -3,7 +3,6 @@ package com.efostach.pwm.repository.io;
 import com.efostach.pwm.model.Project;
 import com.efostach.pwm.repository.ProjectRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCProjectRepoImpl implements ProjectRepository {
@@ -26,11 +25,5 @@ public class JDBCProjectRepoImpl implements ProjectRepository {
 
     public Project delete(Project project) {
         return null;
-    }
-
-    private List<Project> stringToProject() {
-
-        List<Project> projectSet = new ArrayList<Project>();
-        return projectSet;
     }
 }
