@@ -33,6 +33,8 @@
     </dependencies>
 
     <build>
+        <finalName>PWM_App</finalName>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
@@ -44,7 +46,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>PWM_App</finalName>
     </build>
 
 </project>
