@@ -1,10 +1,10 @@
 package com.efostach.pwm.model;
 
 public class Customer {
-    Integer id;
-    String name;
+    private Integer id;
+    private String name;
 
-    public Customer() {
+    private Customer() {
     }
 
     public Integer getId() {
@@ -24,9 +24,36 @@ public class Customer {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return new StringBuilder().append(id).append(",")
                 .append(name)
                 .append("\n").toString();
+    }
+
+    public static Builder newBuilder() {
+        return new Customer().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+
+        }
+
+        public Builder setId(Integer id) {
+            Customer.this.id = id;
+
+            return this;
+        }
+
+        public Builder setName(String name) {
+            Customer.this.name = name;
+
+            return this;
+        }
+
+        public Customer build() {
+            return Customer.this;
+        }
     }
 }

@@ -1,13 +1,13 @@
 package com.efostach.pwm.model;
 
 public class Employee {
-    Integer id;
-    String firstName;
-    String lastName;
-    Integer workExperience;
-    Integer teamId;
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private Integer workExperience;
+    private Integer teamId;
 
-    public Employee() {
+    private Employee() {
     }
 
     public Integer getId() {
@@ -58,5 +58,50 @@ public class Employee {
                 .append(workExperience).append(",")
                 .append(teamId)
                 .append("\n").toString();
+    }
+
+    public static Builder newBuilder() {
+        return new Employee().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+
+        }
+
+        public Employee.Builder setId(Integer id) {
+            Employee.this.id = id;
+
+            return this;
+        }
+
+        public Employee.Builder setFirstName(String firstName) {
+            Employee.this.firstName = firstName;
+
+            return this;
+        }
+
+        public Employee.Builder setLastName(String lastName) {
+            Employee.this.lastName = lastName;
+
+            return this;
+        }
+
+        public Employee.Builder setWorkExperience(Integer workExp) {
+            Employee.this.workExperience = workExp;
+
+            return this;
+        }
+
+        public Employee.Builder setTeamId(Integer teamId) {
+            Employee.this.teamId = teamId;
+
+            return this;
+        }
+
+        public Employee build() {
+            return Employee.this;
+        }
     }
 }

@@ -1,10 +1,10 @@
 package com.efostach.pwm.model;
 
 public class Team {
-    Integer id;
-    String name;
+    private Integer id;
+    private String name;
 
-    public Team() {
+    private Team() {
     }
 
     public Integer getId() {
@@ -28,5 +28,32 @@ public class Team {
         return new StringBuilder().append(id).append(",")
                 .append(name)
                 .append("\n").toString();
+    }
+
+    public static Builder newBuilder() {
+        return new Team().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+
+        }
+
+        public Builder setId(Integer id) {
+            Team.this.id = id;
+
+            return this;
+        }
+
+        public Builder setName(String name) {
+            Team.this.name = name;
+
+            return this;
+        }
+
+        public Team build() {
+            return Team.this;
+        }
     }
 }
