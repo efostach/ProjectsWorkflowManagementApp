@@ -15,10 +15,10 @@ public class JDBCCustomerRepoImpl implements CustomerRepository {
 
     public Customer getById(Integer id) throws SQLException, ConnectionFailException {
 
-        PreparedStatement statement = JDBCConnection.getConnection().prepareStatement(CUSTOMER_GETBYID_SQL);
+        PreparedStatement statement = JDBCConnection.getConnection().prepareStatement(CUSTOMER_GETBY_ID_SQL);
         statement.setInt(1, id);
 
-        ResultSet rs = statement.executeQuery(CUSTOMER_GETBYID_SQL);
+        ResultSet rs = statement.executeQuery();
 
         Customer customer = Customer.newBuilder()
                 .setId(rs.getInt("id"))
@@ -37,7 +37,7 @@ public class JDBCCustomerRepoImpl implements CustomerRepository {
 
         Statement statement = JDBCConnection.getConnection().createStatement();
 
-        ResultSet rs = statement.executeQuery(CUSTOMER_GETALL_SQL);
+        ResultSet rs = statement.executeQuery(CUSTOMER_GET_ALL_SQL);
 
         while (rs.next()) {
             customerSet.add(Customer.newBuilder()
@@ -52,58 +52,34 @@ public class JDBCCustomerRepoImpl implements CustomerRepository {
         return customerSet;
     }
 
-    public Customer create(Customer customer) throws SQLException, ConnectionFailException {
+    public void create(Customer customer) throws SQLException, ConnectionFailException {
 
         PreparedStatement statement = JDBCConnection.getConnection().prepareStatement(CUSTOMER_CREATE_SQL);
         statement.setString(1, customer.getName());
 
-        ResultSet rs = statement.executeQuery(CUSTOMER_CREATE_SQL);
+        statement.executeQuery();
 
-        Customer createdObj = Customer.newBuilder()
-                .setId(rs.getInt("id"))
-                .setName(rs.getString("name"))
-                .build();
-
-        rs.close();
         statement.close();
-
-        return createdObj;
     }
 
-    public Customer update(Customer customer) throws SQLException, ConnectionFailException {
+    public void update(Customer customer) throws SQLException, ConnectionFailException {
 
         PreparedStatement statement = JDBCConnection.getConnection().prepareStatement(CUSTOMER_UPDATE_SQL);
         statement.setString(1, customer.getName());
         statement.setInt(2, customer.getId());
 
-        ResultSet rs = statement.executeQuery(CUSTOMER_DELETE_SQL);
+        statement.executeQuery();
 
-        Customer updatedObj = Customer.newBuilder()
-                .setId(rs.getInt("id"))
-                .setName(rs.getString("name"))
-                .build();
-
-        rs.close();
         statement.close();
-
-        return updatedObj;
     }
 
-    public Customer delete(Customer customer) throws SQLException, ConnectionFailException {
+    public void delete(Customer customer) throws SQLException, ConnectionFailException {
 
         PreparedStatement statement = JDBCConnection.getConnection().prepareStatement(CUSTOMER_DELETE_SQL);
         statement.setInt(1, customer.getId());
 
-        ResultSet rs = statement.executeQuery(CUSTOMER_DELETE_SQL);
+        statement.executeQuery();
 
-        Customer deletedObj = Customer.newBuilder()
-                .setId(rs.getInt("id"))
-                .setName(rs.getString("name"))
-                .build();
-
-        rs.close();
         statement.close();
-
-        return deletedObj;
     }
 }
