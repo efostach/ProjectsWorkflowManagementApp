@@ -1,5 +1,5 @@
 package com.efostach.pwm.model;
 
-enum ProjectStatus {
+public enum ProjectStatus {
     IN_PROGRESS, COMPLETED
 }
