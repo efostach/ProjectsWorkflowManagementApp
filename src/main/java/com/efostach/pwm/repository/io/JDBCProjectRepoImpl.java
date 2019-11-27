@@ -4,6 +4,7 @@ import com.efostach.pwm.model.Project;
 import com.efostach.pwm.model.ProjectStatus;
 import com.efostach.pwm.repository.ProjectRepository;
 import com.efostach.pwm.repository.exceptions.ConnectionFailException;
+import com.efostach.pwm.repository.exceptions.NotFoundObjectsException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,20 +17,25 @@ import static com.efostach.pwm.repository.io.JDBCUtilSQL.*;
 
 public class JDBCProjectRepoImpl implements ProjectRepository {
 
-    public Project getById(Integer id) throws SQLException, ConnectionFailException {
+    public Project getById(Integer id) throws SQLException, ConnectionFailException, NotFoundObjectsException {
 
         PreparedStatement statement = JDBCConnection.getConnection().prepareStatement(PROJECT_GETBY_ID_SQL);
         statement.setInt(1, id);
 
-        ResultSet rs = statement.executeQuery(PROJECT_GETBY_ID_SQL);
+        ResultSet rs = statement.executeQuery();
 
-        Project project = Project.newBuilder()
+        Project project = null;
+
+        if (rs.next()) {
+            project = Project.newBuilder()
                     .setId(rs.getInt("id"))
                     .setName(rs.getString("name"))
                     .setCost(rs.getInt("cost"))
                     .setStatus(ProjectStatus.valueOf(rs.getString("status")))
                     .build();
-
+        } else {
+            throw new NotFoundObjectsException("Not found any object.");
+        }
         rs.close();
         statement.close();
 
@@ -43,7 +49,7 @@ public class JDBCProjectRepoImpl implements ProjectRepository {
         PreparedStatement statement = JDBCConnection.getConnection().prepareStatement(PROJECT_GETBY_TEAM_SQL);
         statement.setInt(1, teamId);
 
-        ResultSet rs = statement.executeQuery(PROJECT_GETBY_TEAM_SQL);
+        ResultSet rs = statement.executeQuery();
 
         while (rs.next()) {
             projectSet.add(Project.newBuilder()
